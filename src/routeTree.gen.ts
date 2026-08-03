@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ControlRouteImport } from './routes/control'
 import { Route as ControlIndexRouteImport } from './routes/control.index'
+import { Route as ControlMapRouteImport } from './routes/control.map'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,28 +29,36 @@ const ControlIndexRoute = ControlIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ControlRoute,
 } as any)
+const ControlMapRoute = ControlMapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => ControlRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/control': typeof ControlRouteWithChildren
+  '/control/map': typeof ControlMapRoute
   '/control/': typeof ControlIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/control/map': typeof ControlMapRoute
   '/control': typeof ControlIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/control': typeof ControlRouteWithChildren
+  '/control/map': typeof ControlMapRoute
   '/control/': typeof ControlIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/control' | '/control/'
+  fullPaths: '/' | '/control' | '/control/map' | '/control/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/control'
-  id: '__root__' | '/' | '/control' | '/control/'
+  to: '/' | '/control/map' | '/control'
+  id: '__root__' | '/' | '/control' | '/control/map' | '/control/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -80,14 +89,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ControlIndexRouteImport
       parentRoute: typeof ControlRoute
     }
+    '/control/map': {
+      id: '/control/map'
+      path: '/map'
+      fullPath: '/control/map'
+      preLoaderRoute: typeof ControlMapRouteImport
+      parentRoute: typeof ControlRoute
+    }
   }
 }
 
 interface ControlRouteChildren {
+  ControlMapRoute: typeof ControlMapRoute
   ControlIndexRoute: typeof ControlIndexRoute
 }
 
 const ControlRouteChildren: ControlRouteChildren = {
+  ControlMapRoute: ControlMapRoute,
   ControlIndexRoute: ControlIndexRoute,
 }
 
