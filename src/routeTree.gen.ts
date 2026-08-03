@@ -10,8 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as ControlRouteImport } from './routes/control'
+import { Route as EvacuateRouteImport } from './routes/evacuate'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as PortalRouteImport } from './routes/portal'
+import { Route as StatusRouteImport } from './routes/status'
 import { Route as ControlIndexRouteImport } from './routes/control.index'
 import { Route as ControlAnalyticsRouteImport } from './routes/control.analytics'
 import { Route as ControlCommunicationsRouteImport } from './routes/control.communications'
@@ -32,14 +37,39 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactsRoute = ContactsRouteImport.update({
+  id: '/contacts',
+  path: '/contacts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ControlRoute = ControlRouteImport.update({
   id: '/control',
   path: '/control',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EvacuateRoute = EvacuateRouteImport.update({
+  id: '/evacuate',
+  path: '/evacuate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortalRoute = PortalRouteImport.update({
   id: '/portal',
   path: '/portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatusRoute = StatusRouteImport.update({
+  id: '/status',
+  path: '/status',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ControlIndexRoute = ControlIndexRouteImport.update({
@@ -115,8 +145,13 @@ const PortalShelterRoute = PortalShelterRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contacts': typeof ContactsRoute
   '/control': typeof ControlRouteWithChildren
+  '/evacuate': typeof EvacuateRoute
+  '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
+  '/status': typeof StatusRoute
   '/control/analytics': typeof ControlAnalyticsRoute
   '/control/communications': typeof ControlCommunicationsRoute
   '/control/evacuation': typeof ControlEvacuationRoute
@@ -134,7 +169,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contacts': typeof ContactsRoute
+  '/evacuate': typeof EvacuateRoute
+  '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
+  '/status': typeof StatusRoute
   '/control/analytics': typeof ControlAnalyticsRoute
   '/control/communications': typeof ControlCommunicationsRoute
   '/control/evacuation': typeof ControlEvacuationRoute
@@ -153,8 +193,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contacts': typeof ContactsRoute
   '/control': typeof ControlRouteWithChildren
+  '/evacuate': typeof EvacuateRoute
+  '/login': typeof LoginRoute
   '/portal': typeof PortalRouteWithChildren
+  '/status': typeof StatusRoute
   '/control/analytics': typeof ControlAnalyticsRoute
   '/control/communications': typeof ControlCommunicationsRoute
   '/control/evacuation': typeof ControlEvacuationRoute
@@ -174,8 +219,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/contacts'
     | '/control'
+    | '/evacuate'
+    | '/login'
     | '/portal'
+    | '/status'
     | '/control/analytics'
     | '/control/communications'
     | '/control/evacuation'
@@ -193,7 +243,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/contacts'
+    | '/evacuate'
+    | '/login'
     | '/portal'
+    | '/status'
     | '/control/analytics'
     | '/control/communications'
     | '/control/evacuation'
@@ -211,8 +266,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/contacts'
     | '/control'
+    | '/evacuate'
+    | '/login'
     | '/portal'
+    | '/status'
     | '/control/analytics'
     | '/control/communications'
     | '/control/evacuation'
@@ -231,8 +291,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactsRoute: typeof ContactsRoute
   ControlRoute: typeof ControlRouteWithChildren
+  EvacuateRoute: typeof EvacuateRoute
+  LoginRoute: typeof LoginRoute
   PortalRoute: typeof PortalRouteWithChildren
+  StatusRoute: typeof StatusRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -244,6 +309,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacts': {
+      id: '/contacts'
+      path: '/contacts'
+      fullPath: '/contacts'
+      preLoaderRoute: typeof ContactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/control': {
       id: '/control'
       path: '/control'
@@ -251,11 +330,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ControlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/evacuate': {
+      id: '/evacuate'
+      path: '/evacuate'
+      fullPath: '/evacuate'
+      preLoaderRoute: typeof EvacuateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portal': {
       id: '/portal'
       path: '/portal'
       fullPath: '/portal'
       preLoaderRoute: typeof PortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/status': {
+      id: '/status'
+      path: '/status'
+      fullPath: '/status'
+      preLoaderRoute: typeof StatusRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/control/': {
@@ -407,8 +507,13 @@ const PortalRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactsRoute: ContactsRoute,
   ControlRoute: ControlRouteWithChildren,
+  EvacuateRoute: EvacuateRoute,
+  LoginRoute: LoginRoute,
   PortalRoute: PortalRouteWithChildren,
+  StatusRoute: StatusRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
