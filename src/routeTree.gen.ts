@@ -12,9 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ControlRouteImport } from './routes/control'
 import { Route as ControlIndexRouteImport } from './routes/control.index'
+import { Route as ControlAnalyticsRouteImport } from './routes/control.analytics'
+import { Route as ControlCommunicationsRouteImport } from './routes/control.communications'
 import { Route as ControlEvacuationRouteImport } from './routes/control.evacuation'
+import { Route as ControlHospitalsRouteImport } from './routes/control.hospitals'
 import { Route as ControlMapRouteImport } from './routes/control.map'
+import { Route as ControlReportsRouteImport } from './routes/control.reports'
 import { Route as ControlRescueRouteImport } from './routes/control.rescue'
+import { Route as ControlSettingsRouteImport } from './routes/control.settings'
+import { Route as ControlSheltersRouteImport } from './routes/control.shelters'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -31,9 +37,24 @@ const ControlIndexRoute = ControlIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ControlRoute,
 } as any)
+const ControlAnalyticsRoute = ControlAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => ControlRoute,
+} as any)
+const ControlCommunicationsRoute = ControlCommunicationsRouteImport.update({
+  id: '/communications',
+  path: '/communications',
+  getParentRoute: () => ControlRoute,
+} as any)
 const ControlEvacuationRoute = ControlEvacuationRouteImport.update({
   id: '/evacuation',
   path: '/evacuation',
+  getParentRoute: () => ControlRoute,
+} as any)
+const ControlHospitalsRoute = ControlHospitalsRouteImport.update({
+  id: '/hospitals',
+  path: '/hospitals',
   getParentRoute: () => ControlRoute,
 } as any)
 const ControlMapRoute = ControlMapRouteImport.update({
@@ -41,34 +62,67 @@ const ControlMapRoute = ControlMapRouteImport.update({
   path: '/map',
   getParentRoute: () => ControlRoute,
 } as any)
+const ControlReportsRoute = ControlReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => ControlRoute,
+} as any)
 const ControlRescueRoute = ControlRescueRouteImport.update({
   id: '/rescue',
   path: '/rescue',
+  getParentRoute: () => ControlRoute,
+} as any)
+const ControlSettingsRoute = ControlSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => ControlRoute,
+} as any)
+const ControlSheltersRoute = ControlSheltersRouteImport.update({
+  id: '/shelters',
+  path: '/shelters',
   getParentRoute: () => ControlRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/control': typeof ControlRouteWithChildren
+  '/control/analytics': typeof ControlAnalyticsRoute
+  '/control/communications': typeof ControlCommunicationsRoute
   '/control/evacuation': typeof ControlEvacuationRoute
+  '/control/hospitals': typeof ControlHospitalsRoute
   '/control/map': typeof ControlMapRoute
+  '/control/reports': typeof ControlReportsRoute
   '/control/rescue': typeof ControlRescueRoute
+  '/control/settings': typeof ControlSettingsRoute
+  '/control/shelters': typeof ControlSheltersRoute
   '/control/': typeof ControlIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/control/analytics': typeof ControlAnalyticsRoute
+  '/control/communications': typeof ControlCommunicationsRoute
   '/control/evacuation': typeof ControlEvacuationRoute
+  '/control/hospitals': typeof ControlHospitalsRoute
   '/control/map': typeof ControlMapRoute
+  '/control/reports': typeof ControlReportsRoute
   '/control/rescue': typeof ControlRescueRoute
+  '/control/settings': typeof ControlSettingsRoute
+  '/control/shelters': typeof ControlSheltersRoute
   '/control': typeof ControlIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/control': typeof ControlRouteWithChildren
+  '/control/analytics': typeof ControlAnalyticsRoute
+  '/control/communications': typeof ControlCommunicationsRoute
   '/control/evacuation': typeof ControlEvacuationRoute
+  '/control/hospitals': typeof ControlHospitalsRoute
   '/control/map': typeof ControlMapRoute
+  '/control/reports': typeof ControlReportsRoute
   '/control/rescue': typeof ControlRescueRoute
+  '/control/settings': typeof ControlSettingsRoute
+  '/control/shelters': typeof ControlSheltersRoute
   '/control/': typeof ControlIndexRoute
 }
 export interface FileRouteTypes {
@@ -76,24 +130,42 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/control'
+    | '/control/analytics'
+    | '/control/communications'
     | '/control/evacuation'
+    | '/control/hospitals'
     | '/control/map'
+    | '/control/reports'
     | '/control/rescue'
+    | '/control/settings'
+    | '/control/shelters'
     | '/control/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/control/analytics'
+    | '/control/communications'
     | '/control/evacuation'
+    | '/control/hospitals'
     | '/control/map'
+    | '/control/reports'
     | '/control/rescue'
+    | '/control/settings'
+    | '/control/shelters'
     | '/control'
   id:
     | '__root__'
     | '/'
     | '/control'
+    | '/control/analytics'
+    | '/control/communications'
     | '/control/evacuation'
+    | '/control/hospitals'
     | '/control/map'
+    | '/control/reports'
     | '/control/rescue'
+    | '/control/settings'
+    | '/control/shelters'
     | '/control/'
   fileRoutesById: FileRoutesById
 }
@@ -125,11 +197,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ControlIndexRouteImport
       parentRoute: typeof ControlRoute
     }
+    '/control/analytics': {
+      id: '/control/analytics'
+      path: '/analytics'
+      fullPath: '/control/analytics'
+      preLoaderRoute: typeof ControlAnalyticsRouteImport
+      parentRoute: typeof ControlRoute
+    }
+    '/control/communications': {
+      id: '/control/communications'
+      path: '/communications'
+      fullPath: '/control/communications'
+      preLoaderRoute: typeof ControlCommunicationsRouteImport
+      parentRoute: typeof ControlRoute
+    }
     '/control/evacuation': {
       id: '/control/evacuation'
       path: '/evacuation'
       fullPath: '/control/evacuation'
       preLoaderRoute: typeof ControlEvacuationRouteImport
+      parentRoute: typeof ControlRoute
+    }
+    '/control/hospitals': {
+      id: '/control/hospitals'
+      path: '/hospitals'
+      fullPath: '/control/hospitals'
+      preLoaderRoute: typeof ControlHospitalsRouteImport
       parentRoute: typeof ControlRoute
     }
     '/control/map': {
@@ -139,6 +232,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ControlMapRouteImport
       parentRoute: typeof ControlRoute
     }
+    '/control/reports': {
+      id: '/control/reports'
+      path: '/reports'
+      fullPath: '/control/reports'
+      preLoaderRoute: typeof ControlReportsRouteImport
+      parentRoute: typeof ControlRoute
+    }
     '/control/rescue': {
       id: '/control/rescue'
       path: '/rescue'
@@ -146,20 +246,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ControlRescueRouteImport
       parentRoute: typeof ControlRoute
     }
+    '/control/settings': {
+      id: '/control/settings'
+      path: '/settings'
+      fullPath: '/control/settings'
+      preLoaderRoute: typeof ControlSettingsRouteImport
+      parentRoute: typeof ControlRoute
+    }
+    '/control/shelters': {
+      id: '/control/shelters'
+      path: '/shelters'
+      fullPath: '/control/shelters'
+      preLoaderRoute: typeof ControlSheltersRouteImport
+      parentRoute: typeof ControlRoute
+    }
   }
 }
 
 interface ControlRouteChildren {
+  ControlAnalyticsRoute: typeof ControlAnalyticsRoute
+  ControlCommunicationsRoute: typeof ControlCommunicationsRoute
   ControlEvacuationRoute: typeof ControlEvacuationRoute
+  ControlHospitalsRoute: typeof ControlHospitalsRoute
   ControlMapRoute: typeof ControlMapRoute
+  ControlReportsRoute: typeof ControlReportsRoute
   ControlRescueRoute: typeof ControlRescueRoute
+  ControlSettingsRoute: typeof ControlSettingsRoute
+  ControlSheltersRoute: typeof ControlSheltersRoute
   ControlIndexRoute: typeof ControlIndexRoute
 }
 
 const ControlRouteChildren: ControlRouteChildren = {
+  ControlAnalyticsRoute: ControlAnalyticsRoute,
+  ControlCommunicationsRoute: ControlCommunicationsRoute,
   ControlEvacuationRoute: ControlEvacuationRoute,
+  ControlHospitalsRoute: ControlHospitalsRoute,
   ControlMapRoute: ControlMapRoute,
+  ControlReportsRoute: ControlReportsRoute,
   ControlRescueRoute: ControlRescueRoute,
+  ControlSettingsRoute: ControlSettingsRoute,
+  ControlSheltersRoute: ControlSheltersRoute,
   ControlIndexRoute: ControlIndexRoute,
 }
 
