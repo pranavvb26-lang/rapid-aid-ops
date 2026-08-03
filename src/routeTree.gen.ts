@@ -14,6 +14,7 @@ import { Route as ControlRouteImport } from './routes/control'
 import { Route as ControlIndexRouteImport } from './routes/control.index'
 import { Route as ControlEvacuationRouteImport } from './routes/control.evacuation'
 import { Route as ControlMapRouteImport } from './routes/control.map'
+import { Route as ControlRescueRouteImport } from './routes/control.rescue'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,18 +41,25 @@ const ControlMapRoute = ControlMapRouteImport.update({
   path: '/map',
   getParentRoute: () => ControlRoute,
 } as any)
+const ControlRescueRoute = ControlRescueRouteImport.update({
+  id: '/rescue',
+  path: '/rescue',
+  getParentRoute: () => ControlRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/control': typeof ControlRouteWithChildren
   '/control/evacuation': typeof ControlEvacuationRoute
   '/control/map': typeof ControlMapRoute
+  '/control/rescue': typeof ControlRescueRoute
   '/control/': typeof ControlIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/control/evacuation': typeof ControlEvacuationRoute
   '/control/map': typeof ControlMapRoute
+  '/control/rescue': typeof ControlRescueRoute
   '/control': typeof ControlIndexRoute
 }
 export interface FileRoutesById {
@@ -60,20 +68,32 @@ export interface FileRoutesById {
   '/control': typeof ControlRouteWithChildren
   '/control/evacuation': typeof ControlEvacuationRoute
   '/control/map': typeof ControlMapRoute
+  '/control/rescue': typeof ControlRescueRoute
   '/control/': typeof ControlIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/control' | '/control/evacuation' | '/control/map' | '/control/'
+    | '/'
+    | '/control'
+    | '/control/evacuation'
+    | '/control/map'
+    | '/control/rescue'
+    | '/control/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/control/evacuation' | '/control/map' | '/control'
+  to:
+    | '/'
+    | '/control/evacuation'
+    | '/control/map'
+    | '/control/rescue'
+    | '/control'
   id:
     | '__root__'
     | '/'
     | '/control'
     | '/control/evacuation'
     | '/control/map'
+    | '/control/rescue'
     | '/control/'
   fileRoutesById: FileRoutesById
 }
@@ -119,18 +139,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ControlMapRouteImport
       parentRoute: typeof ControlRoute
     }
+    '/control/rescue': {
+      id: '/control/rescue'
+      path: '/rescue'
+      fullPath: '/control/rescue'
+      preLoaderRoute: typeof ControlRescueRouteImport
+      parentRoute: typeof ControlRoute
+    }
   }
 }
 
 interface ControlRouteChildren {
   ControlEvacuationRoute: typeof ControlEvacuationRoute
   ControlMapRoute: typeof ControlMapRoute
+  ControlRescueRoute: typeof ControlRescueRoute
   ControlIndexRoute: typeof ControlIndexRoute
 }
 
 const ControlRouteChildren: ControlRouteChildren = {
   ControlEvacuationRoute: ControlEvacuationRoute,
   ControlMapRoute: ControlMapRoute,
+  ControlRescueRoute: ControlRescueRoute,
   ControlIndexRoute: ControlIndexRoute,
 }
 
