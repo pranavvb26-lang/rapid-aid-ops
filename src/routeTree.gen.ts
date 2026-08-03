@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ControlRouteImport } from './routes/control'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as ControlIndexRouteImport } from './routes/control.index'
 import { Route as ControlAnalyticsRouteImport } from './routes/control.analytics'
 import { Route as ControlCommunicationsRouteImport } from './routes/control.communications'
@@ -21,6 +22,10 @@ import { Route as ControlReportsRouteImport } from './routes/control.reports'
 import { Route as ControlRescueRouteImport } from './routes/control.rescue'
 import { Route as ControlSettingsRouteImport } from './routes/control.settings'
 import { Route as ControlSheltersRouteImport } from './routes/control.shelters'
+import { Route as PortalCitizenRouteImport } from './routes/portal.citizen'
+import { Route as PortalHospitalRouteImport } from './routes/portal.hospital'
+import { Route as PortalRescueRouteImport } from './routes/portal.rescue'
+import { Route as PortalShelterRouteImport } from './routes/portal.shelter'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,6 +35,11 @@ const IndexRoute = IndexRouteImport.update({
 const ControlRoute = ControlRouteImport.update({
   id: '/control',
   path: '/control',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ControlIndexRoute = ControlIndexRouteImport.update({
@@ -82,10 +92,31 @@ const ControlSheltersRoute = ControlSheltersRouteImport.update({
   path: '/shelters',
   getParentRoute: () => ControlRoute,
 } as any)
+const PortalCitizenRoute = PortalCitizenRouteImport.update({
+  id: '/citizen',
+  path: '/citizen',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalHospitalRoute = PortalHospitalRouteImport.update({
+  id: '/hospital',
+  path: '/hospital',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalRescueRoute = PortalRescueRouteImport.update({
+  id: '/rescue',
+  path: '/rescue',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalShelterRoute = PortalShelterRouteImport.update({
+  id: '/shelter',
+  path: '/shelter',
+  getParentRoute: () => PortalRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/control': typeof ControlRouteWithChildren
+  '/portal': typeof PortalRouteWithChildren
   '/control/analytics': typeof ControlAnalyticsRoute
   '/control/communications': typeof ControlCommunicationsRoute
   '/control/evacuation': typeof ControlEvacuationRoute
@@ -95,10 +126,15 @@ export interface FileRoutesByFullPath {
   '/control/rescue': typeof ControlRescueRoute
   '/control/settings': typeof ControlSettingsRoute
   '/control/shelters': typeof ControlSheltersRoute
+  '/portal/citizen': typeof PortalCitizenRoute
+  '/portal/hospital': typeof PortalHospitalRoute
+  '/portal/rescue': typeof PortalRescueRoute
+  '/portal/shelter': typeof PortalShelterRoute
   '/control/': typeof ControlIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/portal': typeof PortalRouteWithChildren
   '/control/analytics': typeof ControlAnalyticsRoute
   '/control/communications': typeof ControlCommunicationsRoute
   '/control/evacuation': typeof ControlEvacuationRoute
@@ -108,12 +144,17 @@ export interface FileRoutesByTo {
   '/control/rescue': typeof ControlRescueRoute
   '/control/settings': typeof ControlSettingsRoute
   '/control/shelters': typeof ControlSheltersRoute
+  '/portal/citizen': typeof PortalCitizenRoute
+  '/portal/hospital': typeof PortalHospitalRoute
+  '/portal/rescue': typeof PortalRescueRoute
+  '/portal/shelter': typeof PortalShelterRoute
   '/control': typeof ControlIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/control': typeof ControlRouteWithChildren
+  '/portal': typeof PortalRouteWithChildren
   '/control/analytics': typeof ControlAnalyticsRoute
   '/control/communications': typeof ControlCommunicationsRoute
   '/control/evacuation': typeof ControlEvacuationRoute
@@ -123,6 +164,10 @@ export interface FileRoutesById {
   '/control/rescue': typeof ControlRescueRoute
   '/control/settings': typeof ControlSettingsRoute
   '/control/shelters': typeof ControlSheltersRoute
+  '/portal/citizen': typeof PortalCitizenRoute
+  '/portal/hospital': typeof PortalHospitalRoute
+  '/portal/rescue': typeof PortalRescueRoute
+  '/portal/shelter': typeof PortalShelterRoute
   '/control/': typeof ControlIndexRoute
 }
 export interface FileRouteTypes {
@@ -130,6 +175,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/control'
+    | '/portal'
     | '/control/analytics'
     | '/control/communications'
     | '/control/evacuation'
@@ -139,10 +185,15 @@ export interface FileRouteTypes {
     | '/control/rescue'
     | '/control/settings'
     | '/control/shelters'
+    | '/portal/citizen'
+    | '/portal/hospital'
+    | '/portal/rescue'
+    | '/portal/shelter'
     | '/control/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/portal'
     | '/control/analytics'
     | '/control/communications'
     | '/control/evacuation'
@@ -152,11 +203,16 @@ export interface FileRouteTypes {
     | '/control/rescue'
     | '/control/settings'
     | '/control/shelters'
+    | '/portal/citizen'
+    | '/portal/hospital'
+    | '/portal/rescue'
+    | '/portal/shelter'
     | '/control'
   id:
     | '__root__'
     | '/'
     | '/control'
+    | '/portal'
     | '/control/analytics'
     | '/control/communications'
     | '/control/evacuation'
@@ -166,12 +222,17 @@ export interface FileRouteTypes {
     | '/control/rescue'
     | '/control/settings'
     | '/control/shelters'
+    | '/portal/citizen'
+    | '/portal/hospital'
+    | '/portal/rescue'
+    | '/portal/shelter'
     | '/control/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ControlRoute: typeof ControlRouteWithChildren
+  PortalRoute: typeof PortalRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -188,6 +249,13 @@ declare module '@tanstack/react-router' {
       path: '/control'
       fullPath: '/control'
       preLoaderRoute: typeof ControlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/control/': {
@@ -260,6 +328,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ControlSheltersRouteImport
       parentRoute: typeof ControlRoute
     }
+    '/portal/citizen': {
+      id: '/portal/citizen'
+      path: '/citizen'
+      fullPath: '/portal/citizen'
+      preLoaderRoute: typeof PortalCitizenRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/hospital': {
+      id: '/portal/hospital'
+      path: '/hospital'
+      fullPath: '/portal/hospital'
+      preLoaderRoute: typeof PortalHospitalRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/rescue': {
+      id: '/portal/rescue'
+      path: '/rescue'
+      fullPath: '/portal/rescue'
+      preLoaderRoute: typeof PortalRescueRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/shelter': {
+      id: '/portal/shelter'
+      path: '/shelter'
+      fullPath: '/portal/shelter'
+      preLoaderRoute: typeof PortalShelterRouteImport
+      parentRoute: typeof PortalRoute
+    }
   }
 }
 
@@ -292,9 +388,27 @@ const ControlRouteChildren: ControlRouteChildren = {
 const ControlRouteWithChildren =
   ControlRoute._addFileChildren(ControlRouteChildren)
 
+interface PortalRouteChildren {
+  PortalCitizenRoute: typeof PortalCitizenRoute
+  PortalHospitalRoute: typeof PortalHospitalRoute
+  PortalRescueRoute: typeof PortalRescueRoute
+  PortalShelterRoute: typeof PortalShelterRoute
+}
+
+const PortalRouteChildren: PortalRouteChildren = {
+  PortalCitizenRoute: PortalCitizenRoute,
+  PortalHospitalRoute: PortalHospitalRoute,
+  PortalRescueRoute: PortalRescueRoute,
+  PortalShelterRoute: PortalShelterRoute,
+}
+
+const PortalRouteWithChildren =
+  PortalRoute._addFileChildren(PortalRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ControlRoute: ControlRouteWithChildren,
+  PortalRoute: PortalRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
